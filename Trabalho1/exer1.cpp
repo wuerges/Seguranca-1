@@ -61,6 +61,6 @@ int main()
    return 0;
 }
 /*Possíveis bugs: Caso o programa for executado mais de uma vez recomenda-se apagar os arquivos "cifrado.txt" e 
-"decifrado.txt", assim evitando acumulos dos dados da saída no bloco de notas.
+"decifrado.txt", assim evitando acumulos dos dados da saída no editor de texto.
 
 Créditos: Partes do código foram desenvolvidas com ajuda do colega Dalton.*/
