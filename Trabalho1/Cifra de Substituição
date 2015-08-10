@@ -1,0 +1,38 @@
+//Aluno: Daniel Maicon Lauermann
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(){
+  FILE *entrada;
+  char cifra[20];
+  char alf[26]= {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm','n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+  char alfm[26]={'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M','N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+  int i,j;
+  
+  entrada = fopen("entrada.txt","a+");
+  fscanf(entrada,"%[^\n]",cifra); 
+ 
+  	  FILE *subs;
+  	  subs = fopen("saida.txt","w");
+  	  
+     for(i=0;i<strlen(cifra);i++){ 
+         for(j=0;j<26;j++){
+         	if(cifra[i]==alf[j]){
+         		if(j>13){
+         			putc(alf[j-13],subs);
+         		}
+         		else
+         			 putc(alf[j+13],subs);
+           	 }
+            if(cifra[i]==alfm[j]){
+          	     if(j>13){
+         			putc(alfm[j-13],subs);
+         		   }
+         		 else
+         			 putc(alfm[j+13],subs);
+           	} 	 
+         }       	 
+     }     	  	 
+}
