@@ -1,0 +1,85 @@
+//Segurança e Auditoria de Sistemas.
+//Aluno: Daniel Maicon Lauermann.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+
+void cifrar(char *l, int key, int lenstr,int lenkey, char keyy, char aux[]){
+    int i;
+    FILE *arq1;
+    arq1 = fopen("cifrado.txt","w");
+    while(i<lenstr){
+		 putc((l[ i % lenstr ]+ aux[i]) % 256, arq1);
+		 //putc((l[i]+ keyy[i]) % 256, arq1);
+		 i++;	   
+	}
+	 
+	fclose(arq1);	
+}
+
+void decifrar(char *l , int key, int lenstr, char aux[]){
+    int i;
+    FILE *desc;
+    desc = fopen("decifrado.txt","w");   		
+    for(i=0;i<lenstr; i++) 
+	putc(( l[i % lenstr]-256+aux[i] ) % 256, desc); 
+
+	fclose(desc);
+}
+
+int main()
+{
+   setlocale(LC_ALL, "Portuguese");
+   FILE *fp;
+   char *string=NULL;
+   int i=0, key=0, menu=0, lenstr=0,lenkey=0;
+   char ch,keyy[20];
+  
+   printf("Seus dados de entrada devem estar contidos no arquivo 'entrada.txt'\n\n");  
+   printf("Tecle 1 para cifrar e 2 para decifrar: ");                             // ----- MENUUUUU ------//
+   scanf("%d",&menu);
+   printf("Entre com a chave: ");
+   scanf("%s",keyy);
+   fflush(stdin);
+   lenkey = strlen(keyy);
+  
+   fp = fopen("entrada.txt","a+");   	
+  
+   if(!fp)
+    {
+      printf( "Erro na abertura do arquivo");
+      exit(0);
+    }   
+    while((ch=fgetc(fp)) != EOF){
+        string = (char *)realloc(string, (++lenstr) * sizeof(char));
+    	string[lenstr - 1] = ch;   
+    }
+    
+    int a;
+    a=lenstr; // Não sei por quê, mas se declarar aux[lenstr] da bug as vezes :(
+	char aux[a];
+    int j=0;
+    while(i<a){
+	 	aux[i]=keyy[j];
+	 	i++;                            // Vai preencher o vetor auxiliar com a chave;
+	 	j++;
+	 	if(j==lenkey)
+	 		j-=lenkey;	 	
+	 }
+ 
+    if(menu==1){   
+    cifrar(string, key, lenstr,lenkey,keyy[20],aux);
+	system("cls");
+	printf("\n\nArquivo cifrado com sucesso, verifique a saída no arquivo 'cifrado.txt'\n\n");
+	}
+	else if(menu==2){
+    decifrar(string, key, lenstr,aux);
+    system("cls");
+    printf("\n\nArquivo decifrado com sucesso, verifique a saída no arquivo 'decifrado.txt'\n\n");
+	}
+   return 0;
+}
